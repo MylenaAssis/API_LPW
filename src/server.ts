@@ -1,5 +1,7 @@
 import fastify from 'fastify';
 import { FastifyRequest, FastifyReply } from 'fastify';
+import { z } from 'zod'
+
 const app = fastify();
 
 const users = [
@@ -12,6 +14,20 @@ const users = [
 //rota com metodo get para listar usuários
 app.get('/users', (request: FastifyRequest, reply: FastifyReply) => {
     return reply.status(200).send(users)
+})
+
+//rota para listar usuario pelo id
+app.get('/users/:id', (request: FastifyRequest, reply:FastifyReply) => {
+    // {id} desestruturando o id do request.params
+    //necessario instalar pacote zod com 'npm i zod' na pasta do projeto
+    const paramSchema = z.object({
+        id: z.string()
+    })
+
+    const { id } = paramSchema.parse(request.params)
+
+    const userId = users.filter(users => users.id === id)
+    return reply.status(200).send(userId)
 })
 
 app.listen({
