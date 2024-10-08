@@ -8,6 +8,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+//por padrão ele cria a comunicação com o postgresql. Para utilizar outros precisa de uma flag especifica
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
