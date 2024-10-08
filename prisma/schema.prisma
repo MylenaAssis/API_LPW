@@ -25,3 +25,7 @@ model User {
 
   @@map("users") //o @@map define o nome da tabela do banco de dados
 }
+
+//no terminal, o comando para executar criacao da tabela é 'npx prisma migrate dev'
+//nome migration: create_table_users
+// com esses dados ele cria a tabeça users no banco de dados
