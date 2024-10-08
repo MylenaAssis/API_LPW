@@ -13,3 +13,12 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// apos criar o banco de dados bdaula no postgres, criamos o model que representa a tabela do banco de dados
+// @id para declarar chave primaria
+// @default(uuid()) para gerar id automatico
+model User {
+  id    String @id @default(uuid())
+  name  String
+  email String
+}
