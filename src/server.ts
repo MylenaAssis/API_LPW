@@ -1,6 +1,6 @@
 import fastify from 'fastify';
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { z } from 'zod'
+import { string, z } from 'zod'
 
 const app = fastify();
 
@@ -28,6 +28,29 @@ app.get('/users/:id', (request: FastifyRequest, reply:FastifyReply) => {
 
     const userId = users.filter(users => users.id === id)
     return reply.status(200).send(userId)
+})
+
+app.post('/users', (request: FastifyRequest, reply: FastifyReply) => {
+    //criando objeto e seus atributos
+    const bodySchema = z.object({
+        name: z.string(),
+        email: z.string(),
+        phone: z.string()
+    })
+
+    //desestruturando, os dados virão da requisição no body
+    const { name, email, phone } = bodySchema.parse(request.body)
+
+    //criacao do objeto
+    const user = {
+        id: String(users.length + 1), //atribuição automatica do id
+        name,
+        email,
+        phone
+    }
+    //comando push pega o objeto e adiciona no final do array users
+    users.push(user)
+    return reply.status(200).send(user) //retorna o objeto novo
 })
 
 app.listen({
