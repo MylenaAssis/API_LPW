@@ -22,4 +22,6 @@ model User {
   id    String @id @default(uuid())
   name  String
   email String @unique
+
+  @@map("users") //o @@map define o nome da tabela do banco de dados
 }
